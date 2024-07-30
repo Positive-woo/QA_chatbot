@@ -1,0 +1,23 @@
+services:
+  fastapi:
+    container_name: ${SERVICE}-fastapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "${EXPOSE_PORT}:8989"
+    volumes:
+      - ./volume:/code/volume
+    env_file:
+      - .env
+    environment:
+      TZ: "Asia/Seoul"
+      COLUMNS: 132
+      TERM: xterm-256color
+      FORCE_COLOR: "true"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
